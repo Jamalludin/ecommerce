@@ -8,6 +8,7 @@ const dotenv  = require ('dotenv')
 const db  = require ('./models')
 
 const indexRouter  = require ('./app/router')
+const categoriesRouter  = require ('./app/router/category')
 const productsRouter  = require ('./app/router/products')
 
 dotenv.config()
@@ -38,6 +39,7 @@ app.use(cors(corsOptions))
 
 app.use('/', indexRouter)
 app.use('/api/products', productsRouter)
+app.use('/api/categories', categoriesRouter)
 
 app.use(function(req, res, next) {
     return res.status(404).send({ code: 404, message: 'URL_NOT_FOUND' });
