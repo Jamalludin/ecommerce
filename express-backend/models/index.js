@@ -1,6 +1,5 @@
-import dbConfig from "../config/db.js"
-import { Sequelize } from "sequelize"
-import { createTable } from "./model.js";
+const dbConfig  = require ( "../config/db")
+const Sequelize  = require ( "sequelize")
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     host: dbConfig.HOST,
@@ -14,6 +13,6 @@ const db = {}
 db.Sequelize = Sequelize
 db.Sequelize = sequelize
 
-db.posts = createTable(sequelize, Sequelize)
+db.posts = require("./model.js")(sequelize, Sequelize)
 
-export default db
+module.exports = db

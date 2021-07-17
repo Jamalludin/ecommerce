@@ -1,14 +1,14 @@
-import express from 'express'
-import createError from 'http-errors'
-import cookieParser from 'cookie-parser'
-import cors from 'cors'
-import logger from 'morgan'
-import dotenv from 'dotenv'
+const express  = require ('express')
+const createError  = require ('http-errors')
+const cookieParser  = require ('cookie-parser')
+const cors  = require ('cors')
+const logger  = require ('morgan')
+const dotenv  = require ('dotenv')
 
-import db from './models/index.js'
+const db  = require ('./models')
 
-import indexRouter from './app/router/index.js'
-import productsRouter from './app/router/products.js'
+const indexRouter  = require ('./app/router')
+const productsRouter  = require ('./app/router/products')
 
 dotenv.config()
 
@@ -40,7 +40,12 @@ app.use('/', indexRouter)
 app.use('/api/products', productsRouter)
 
 app.use(function(req, res, next) {
-    next(createError(404))
-})
+    return res.status(404).send({ code: 404, message: 'URL_NOT_FOUND' });
+});
 
-export default app
+// 500 - Any server error
+app.use(function(err, req, res, next) {
+    return res.status(500).send({ error: err });
+});
+
+module.exports = app

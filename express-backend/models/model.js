@@ -1,4 +1,4 @@
-async function createTable (sequelize, Sequelize) {
+module.exports = (sequelize, Sequelize) => {
 
     const Post = sequelize.define("post", {
         title: {
@@ -14,5 +14,3 @@ async function createTable (sequelize, Sequelize) {
 
     return Post
 }
-
-export { createTable }

@@ -1,4 +1,4 @@
-import { insert} from "../controllers/post.controller.js";
+const dataBases = require("../controllers/post.controller")
 
 async function listProducts() {
     return {
@@ -15,7 +15,11 @@ async function detailProduct() {
 
 async function insertProducts(req, res) {
 
-    return await insert(req, res)
+    const ress = await dataBases.create(req, res)
+
+    console.log("RES", ress)
+
+    return ress
 }
 
-export { listProducts , detailProduct, insertProducts }
+module.exports = { listProducts , detailProduct, insertProducts }

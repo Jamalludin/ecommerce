@@ -1,6 +1,4 @@
-import dotenv from 'dotenv'
-
-dotenv.config()
+require('dotenv').config()
 
 const config = {
     HOST: process.env.HOST || "localhost",
@@ -10,7 +8,7 @@ const config = {
     DIALECT: process.env.DIALECT || "mysql",
 }
 
-export default {
+module.exports = {
     HOST: config.HOST,
     USER: config.USER,
     PASSWORD: config.PASSWORD,

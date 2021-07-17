@@ -1,9 +1,8 @@
-import app from '../app.js'
-import debug from 'debug'
-import http from 'http'
-import dotenv from 'dotenv'
+const app  = require ('../app')
+const debug  = require ('debug')('express-backend:app')
+const http  = require ('http')
 
-dotenv.config()
+require ( 'dotenv').config()
 
 const port = normalizePort(process.env.BACKEND_PORT || '3002')
 app.set('port', port)

@@ -1,15 +1,16 @@
-import db from '../../models/index.js'
+const db = require('../../models')
 
 const Post = db.posts
-const Op = db.Sequelize.OPEN
+const Op = db.Sequelize.Op
 
-async function insert (req, res) {
+async function create (req, res) {
     if (!req.title) {
         res.status(400).send({
             message: "Content Can not be Empity"
         })
         return
     }
+    const response = null
 
     const post = {
         title: req.title,
@@ -17,13 +18,14 @@ async function insert (req, res) {
         published: req.published ? req.published : 0
     }
 
-    Post.create(post).then((data) => {
-        res.send(data)
-    }).catch((err) => {
-        res.status(500).send({
-            message: err.message || "Something When Wrong"
-        })
-    })
+    try {
+        const dbRes = await Post.create(post).then(response)
+
+        return dbRes
+
+    } catch (errors) {
+        return errors
+    }
 }
 
 async function findAll (req, res) {
@@ -42,4 +44,31 @@ async function deleted (req, res) {
 
 }
 
-export { insert, findAll, findOne, update, deleted }
+module.exports = { create }
+
+/*exports.create = (req, res) => {
+    if (!req.title) {
+        res.status(400).send({
+            message: "Content Can not be Empity"
+        })
+        return
+    }
+
+    const post = {
+        title: req.title,
+        description: req.description,
+        published: req.published ? req.published : 0
+    }
+
+    try {
+        const a = Post.create(post).then((data) => {
+            data
+        })
+
+        console.log("a", a)
+
+        return a
+    } catch (errors) {
+        return errors
+    }
+}*/

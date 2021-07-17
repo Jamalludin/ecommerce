@@ -1,5 +1,5 @@
-import express from "express";
-import { listProducts, detailProduct, insertProducts } from '../handler/products.js'
+const express = require("express")
+const { listProducts, detailProduct, insertProducts } = require('../handler/products')
 
 const router = express.Router()
 
@@ -39,7 +39,8 @@ router.post('/add-product', async (req, res, next) => {
     console.log("Begin ", { headers, body, query, params })
 
     try {
-        const resSuccess = await insertProducts(body, res)
+        const resSuccess = await insertProducts(req.body, res)
+        console.log("data", resSuccess)
         res.status(200).json(resSuccess)
 
     } catch (errors) {
@@ -47,4 +48,4 @@ router.post('/add-product', async (req, res, next) => {
     }
 })
 
-export default router
+module.exports = router
