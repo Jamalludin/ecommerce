@@ -19,12 +19,6 @@ exports.findById = async function (req) {
     return findOneDB
 }
 
-exports.updateCategories =  async function (req) {
-    const updateDB = await dbController.update(req)
-
-    return updateDB
-}
-
 exports.updateCategories = async function (req) {
     const updateDB = await dbController.update(req)
 

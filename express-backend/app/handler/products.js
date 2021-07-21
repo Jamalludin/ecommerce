@@ -1,25 +1,34 @@
-const dataBases = require("../controllers/post.controller")
+const dataBases = require("../controllers/products.controller")
 
-async function listProducts() {
-    return {
-        nama: "Jamalludin",
-        hobi: "Ngentot"
-    }
+exports.listProducts = async function (req) {
+
+    const findDB = await dataBases.findAll(req)
+
+    return findDB
 }
 
-async function detailProduct() {
-    return {
-        kntl: "testis"
-    }
+exports.detailProduct = async function (req) {
+
+    const findOneDB = await dataBases.findOne(req)
+
+    return findOneDB
 }
 
-async function insertProducts(req, res) {
+exports.insertProducts = async function (req) {
 
-    const ress = await dataBases.create(req, res)
+    const responseDB = await dataBases.create(req)
 
-    console.log("RES", ress)
-
-    return ress
+    return responseDB
 }
 
-module.exports = { listProducts , detailProduct, insertProducts }
+exports.updateProduct = async function (req) {
+    const updateDB = await dataBases.update(req)
+
+    return updateDB
+}
+
+exports.deleteProduct = async function (req) {
+    const deleteDB = await dataBases.deleted(req)
+
+    return deleteDB
+}
