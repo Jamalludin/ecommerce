@@ -33,10 +33,7 @@ router.get('/', async (req, res, next) => {
     console.log("Begin ", { headers, body, query, params })
 
     try {
-        const resSuccess = await products.listProducts(req)
-        console.log('ress', resSuccess)
-
-        res.status(200).json(resSuccess)
+        await products.listProducts(req, res)
 
     } catch (errors) {
         next(errors)
@@ -49,9 +46,7 @@ router.get('/:id', async (req, res, next) => {
     console.log("Begin ", { headers, body, query, params })
 
     try {
-        const resSuccess = await products.detailProduct(req)
-
-        res.status(200).json(resSuccess)
+        await products.detailProduct(req, res)
 
     } catch (errors) {
         next(errors)
@@ -79,9 +74,7 @@ router.post('/add-product', upload.single('gambar'), async (req, res, next) => {
         })
     } else {
         try {
-            const resSuccess = await products.insertProducts(req)
-            console.log("data", resSuccess)
-            res.status(200).json(resSuccess)
+            await products.insertProducts(req, res)
 
         } catch (errors) {
             next(errors)
@@ -111,19 +104,7 @@ router.put('/update-product/:id', upload.single('gambar'), async (req, res, next
         })
     } else {
         try {
-            const updateDB = await products.updateProduct(req)
-
-            if (updateDB == 1) {
-                res.status(200).json({
-                    statusCode: '00',
-                    message: 'SUCCESS_UPDATED'
-                })
-            } else {
-                res.status(422).json({
-                    statusCode: '00422',
-                    message: 'FAILED_UPDATED_DATA'
-                })
-            }
+            await products.updateProduct(req, res)
 
         } catch (errors) {
 
@@ -135,19 +116,7 @@ router.put('/update-product/:id', upload.single('gambar'), async (req, res, next
 router.delete('/:id', async (req, res, next) => {
 
     try {
-        const deleteDB = await products.deleteProduct(req)
-
-        if (deleteDB == 1) {
-            res.status(200).json({
-                statusCode: '00',
-                message: 'SUCCESS_DELETED'
-            })
-        } else {
-            res.status(422).json({
-                statusCode: '00422',
-                message: `failed deleted file id : ${req.params.id}`
-            })
-        }
+        await products.deleteProduct(req, res)
 
     } catch (errors) {
         next(errors)

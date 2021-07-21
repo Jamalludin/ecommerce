@@ -1,4 +1,5 @@
 const db = require('../../models')
+const { QueryTypes } = require('sequelize');
 
 const Products = db.products
 const Op = db.Sequelize.Op
@@ -53,4 +54,10 @@ exports.deleted = (req) => {
     let result = null
 
     return Products.destroy({where: {id:id}}).then(result).catch((err) => {return err})
+}
+
+exports.findPrductsJoin = (req) => {
+    const result = db.Sequelize.query("SELECT * FROM `products` INNER JOIN categories ON products.id_category = categories.id", { type: QueryTypes.SELECT });
+
+    return result
 }

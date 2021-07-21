@@ -1,3 +1,5 @@
+const categories = require('../models/category.model');
+
 module.exports = (sequelize, Sequelize) => {
 
     const Product = sequelize.define("product", {
@@ -17,7 +19,11 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         id_category: {
-            type: Sequelize.INTEGER
+            type: Sequelize.INTEGER,
+            references: {
+                model: 'categories',
+                key: 'id'
+            }
         }
     })
 

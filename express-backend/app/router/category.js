@@ -31,13 +31,7 @@ router.post('/add-categories', async (req, res, next) => {
     } else {
 
         try {
-            const insertDB = await categories.insertCategories(body)
-
-            res.status(200).json({
-                statusCode: '00',
-                message: 'SUCCESS_CREATED',
-                data: insertDB
-            })
+            await categories.insertCategories(body, res)
 
         } catch (errors) {
 
@@ -49,13 +43,7 @@ router.post('/add-categories', async (req, res, next) => {
 router.get('/all-categories', async (req, res, next) => {
 
     try {
-        const findDB = await categories.findAllCategories(req)
-
-        res.status(200).json({
-            statusCode: '00',
-            message: 'SUCCESS',
-            data: findDB
-        })
+        await categories.findAllCategories(req, res)
 
     } catch (errors) {
 
@@ -66,13 +54,7 @@ router.get('/all-categories', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
 
     try {
-        const findDB = await categories.findById(req)
-
-        res.status(200).json({
-            statusCode: '00',
-            message: 'SUCCESS',
-            data: findDB
-        })
+        await categories.findById(req, res)
 
     } catch (errors) {
 
@@ -83,19 +65,7 @@ router.get('/:id', async (req, res, next) => {
 router.put('/update-categories/:id', async (req, res, next) => {
 
     try {
-        const updateDB = await categories.updateCategories(req)
-
-        if (updateDB == 1) {
-            res.status(200).json({
-                statusCode: '00',
-                message: 'SUCCESS_UPDATED'
-            })
-        } else {
-            res.status(422).json({
-                statusCode: '00422',
-                message: 'FAILED_UPDATED_DATA'
-            })
-        }
+        await categories.updateCategories(req, res)
 
     } catch (errors) {
 
@@ -106,19 +76,7 @@ router.put('/update-categories/:id', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
 
     try {
-        const deleteDB = await categories.deleteCategories(req)
-
-        if (deleteDB == 1) {
-            res.status(200).json({
-                statusCode: '00',
-                message: 'SUCCESS_DELETED'
-            })
-        } else {
-            res.status(422).json({
-                statusCode: '00422',
-                message: `failed deleted file id : ${req.params.id}`
-            })
-        }
+        await categories.deleteCategories(req, res)
 
     } catch (errors) {
         next(errors)
