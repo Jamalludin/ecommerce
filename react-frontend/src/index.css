@@ -8,3 +8,16 @@
 .navbar {
     background-color: #22668A;
 }
+
+.category-active {
+    background-color: #22668A;
+    color: #ffffff;
+}
+
+.Group__list {
+    cursor: pointer;
+}
+
+code {
+    font-family: source-code-pr, Menlo, Monaco, Consolas, "Courier New", monospace;
+}

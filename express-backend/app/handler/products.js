@@ -1,5 +1,16 @@
 const dataBases = require("../controllers/products.controller")
 
+exports.insertProducts = async function (req, res) {
+
+    const responseDB = await dataBases.create(req)
+
+    res.status(200).json({
+        statusCode: '00',
+        message: 'SUCCESS_CREATED',
+        data: responseDB
+    })
+}
+
 exports.listProducts = async function (req, res) {
 
     const findDB = await dataBases.findAll(req)
@@ -12,13 +23,6 @@ exports.detailProduct = async function (req, res) {
     const findOneDB = await dataBases.findOne(req)
 
     res.status(200).json(findOneDB)
-}
-
-exports.insertProducts = async function (req, res) {
-
-    const responseDB = await dataBases.create(req)
-
-    res.status(200).json(responseDB)
 }
 
 exports.updateProduct = async function (req, res) {

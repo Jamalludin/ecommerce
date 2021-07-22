@@ -6,6 +6,10 @@ module.exports = (sequelize, Sequelize) => {
         },
         descriptions: {
             type: Sequelize.STRING
+        },
+        is_deleted: {
+           type: Sequelize.BOOLEAN,
+           defaultValue: false
         }
     })
 

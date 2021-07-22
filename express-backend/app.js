@@ -18,13 +18,13 @@ const app = express()
 app.use(logger(process.env.NODE_ENV||'dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use('../uploads', express.static('uploads'))
+app.use('/api/uploads', express.static('uploads'))
 app.use(cookieParser())
 
 db.Sequelize.sync()
 
 let whiteList = [
-    'http://localhost:3001'
+    'http://localhost:3000'
 ]
 
 let corsOptions = {

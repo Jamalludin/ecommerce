@@ -23,7 +23,7 @@ exports.create = (req) => {
 exports.findAll = (req) => {
     const result = null
 
-    return Products.findAll().then(result).catch((err) => {return err})
+    return Products.findAll({where: {is_deleted: false}}).then(result).catch((err) => {return err})
 }
 
 exports.findOne = (req) => {
@@ -56,8 +56,27 @@ exports.deleted = (req) => {
     return Products.destroy({where: {id:id}}).then(result).catch((err) => {return err})
 }
 
-exports.findPrductsJoin = (req) => {
-    const result = db.Sequelize.query("SELECT * FROM `products` INNER JOIN categories ON products.id_category = categories.id", { type: QueryTypes.SELECT });
+exports.findPrductsJoin = () => {
+    const result = db.Sequelize.query(
+        `SELECT 
+         products.id, products.kode, products.nama, products.harga, products.is_ready, products.gambar, 
+         products.createdAt, products.updatedAt, categories.id AS id_category, 
+         categories.categories 
+         FROM products 
+         INNER JOIN categories ON products.id_category = categories.id`, { type: QueryTypes.SELECT });
+
+    return result
+}
+
+exports.findPrductsJoinQuery = (req) => {
+    const result = db.Sequelize.query(
+        `SELECT 
+         products.id, products.kode, products.nama, products.harga, products.is_ready, products.gambar, 
+         products.createdAt, products.updatedAt, categories.id AS id_category, 
+         categories.categories 
+         FROM products 
+         INNER JOIN categories ON products.id_category = categories.id 
+         WHERE id_category = ${req.query.id}`, { type: QueryTypes.SELECT });
 
     return result
 }

@@ -23,7 +23,7 @@ exports.findAll = (req) => {
 
     const result = null
 
-    return categories.findAll().then(result).catch((err) => {return err})
+    return categories.findAll({where: {is_deleted: false}}).then(result).catch((err) => {return err})
 }
 
 exports.findOne = (req) => {

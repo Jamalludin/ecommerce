@@ -5,7 +5,9 @@ const dashboard = require('../handler/dashboard')
 
 router.get('/*', async (req, res, next) => {
 
-    const {headers, body, query, params} = req
+    const {body, query, params} = req
+
+    console.log("Begin",query)
 
     try {
         await dashboard.findAllProductsAndCategories(req, res)

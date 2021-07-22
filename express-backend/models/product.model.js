@@ -1,5 +1,3 @@
-const categories = require('../models/category.model');
-
 module.exports = (sequelize, Sequelize) => {
 
     const Product = sequelize.define("product", {
@@ -24,6 +22,10 @@ module.exports = (sequelize, Sequelize) => {
                 model: 'categories',
                 key: 'id'
             }
+        },
+        is_deleted: {
+            type: Sequelize.BOOLEAN,
+            defaultValue: false
         }
     })
 

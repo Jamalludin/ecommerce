@@ -1,8 +1,16 @@
 const dbControllerProducts = require("../controllers/products.controller")
 const dbControllerCategories = require("../controllers/category.controller")
+const _ = require("lodash")
 
 exports.findAllProductsAndCategories = async function (req, res) {
-    const findDbProducts = await dbControllerProducts.findPrductsJoin(req)
+    let findDbProducts
+
+    if (_.isEmpty(req.query)) {
+        findDbProducts = await dbControllerProducts.findPrductsJoin()
+    } else {
+        findDbProducts = await dbControllerProducts.findPrductsJoinQuery(req)
+    }
+
     const findDbCategories = await dbControllerCategories.findAll(req)
 
     res.status(200).json({
